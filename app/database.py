@@ -1,12 +1,25 @@
+import os
 import sqlite3
 from pathlib import Path
 
-DATABASE = Path(__file__).resolve().parent.parent / "tasks.db"
+
+# Database location can be configured through an environment variable.
+# Defaults to /data/tasks.db for Docker deployments.
+DATABASE = Path(
+    os.environ.get(
+        "DATABASE_PATH",
+        "/data/tasks.db"
+    )
+)
 
 
 def get_db_connection():
+    # Ensure the database directory exists.
+    DATABASE.parent.mkdir(parents=True, exist_ok=True)
+
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
+
     return conn
 
 

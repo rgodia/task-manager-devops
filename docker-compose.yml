@@ -1,0 +1,23 @@
+services:
+  task-manager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: task-manager:1.2
+    container_name: task-manager
+
+    ports:
+      - "5000:5000"
+
+    environment:
+      DATABASE_PATH: /data/tasks.db
+
+    volumes:
+      - task-manager-data:/data
+
+    restart: unless-stopped
+
+volumes:
+  task-manager-data:
+
