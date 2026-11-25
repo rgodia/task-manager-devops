@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 40px 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 750px;
+    margin: auto;
+}
+
+h1 {
+    color: #263b5e;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.form-container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+button {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    background: #3867d6;
+}
+
+.task {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.task-content {
+    overflow-wrap: anywhere;
+}
+
+.task h3 {
+    margin-top: 0;
+}
+
+.task p {
+    color: #666;
+}
+
+.completed h3 {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.complete {
+    background: #20bf6b;
+}
+
+.delete {
+    background: #eb3b5a;
+}
+
+.empty {
+    color: #888;
+    text-align: center;
+    padding: 30px;
+}

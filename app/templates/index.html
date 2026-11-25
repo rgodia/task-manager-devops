@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Task Manager</h1>
+    <p class="subtitle">Stay organized. Get things done.</p>
+
+    <div class="form-container">
+
+        <form action="/add" method="POST">
+
+            <input
+                type="text"
+                name="title"
+                placeholder="What needs to be done?"
+                required
+            >
+
+            <textarea
+                name="description"
+                placeholder="Add a description (optional)"
+            ></textarea>
+
+            <button type="submit">Add Task</button>
+
+        </form>
+
+    </div>
+
+    <h2>My Tasks</h2>
+
+    {% if tasks %}
+
+        {% for task in tasks %}
+
+            <div class="task {% if task['completed'] %}completed{% endif %}">
+
+                <div class="task-content">
+
+                    <h3>{{ task['title'] }}</h3>
+
+                    <p>{{ task['description'] or '' }}</p>
+
+                    <small>
+                        Created: {{ task['created_at'] }}
+                    </small>
+
+                </div>
+
+                <div class="actions">
+
+                    <form action="/complete/{{ task['id'] }}" method="POST">
+                        <button type="submit" class="complete">
+                            {% if task['completed'] %}
+                                Undo
+                            {% else %}
+                                Complete
+                            {% endif %}
+                        </button>
+                    </form>
+
+                    <form action="/delete/{{ task['id'] }}" method="POST">
+                        <button type="submit" class="delete">
+                            Delete
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p class="empty">No tasks yet. Add your first task!</p>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
+
