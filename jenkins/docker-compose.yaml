@@ -1,0 +1,68 @@
+services:
+  jenkins:
+    build:
+      context: ./controller
+      dockerfile: Dockerfile
+    image: task-manager-jenkins-controller:1.0
+    container_name: jenkins
+    restart: unless-stopped
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+    networks:
+      - jenkins-net
+
+  python-agent:
+    build:
+      context: ./python-agent
+      dockerfile: Dockerfile
+    image: jenkins-python-agent:1.2
+    container_name: python-agent
+    restart: unless-stopped
+
+    depends_on:
+      - jenkins
+
+    group_add:
+      - "973"
+
+    command:
+      - "-url"
+      - "http://jenkins:8080"
+      - "-secret"
+      - "${JENKINS_AGENT_SECRET:?Set JENKINS_AGENT_SECRET in jenkins/.env}"
+      - "-name"
+      - "python-agent"
+      - "-webSocket"
+      - "-workDir"
+      - "/home/jenkins/agent"
+
+    volumes:
+      - agent_jenkins_home:/home/jenkins/.jenkins
+      - agent_workspace:/home/jenkins/agent
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    networks:
+      - jenkins-net
+
+networks:
+  jenkins-net:
+    external: true
+    name: jenkins-net
+
+volumes:
+  jenkins_home:
+    external: true
+    name: jenkins_home
+
+  agent_jenkins_home:
+    external: true
+    name: c3df140077ac37b6b1817a5faac66b48c7d1a15eb7f9126bc36326193177bde0
+
+  agent_workspace:
+    external: true
+    name: 1729a65f31c5767647da9f2c784c0e5426657af5418fd7faed90954f120a5b6e

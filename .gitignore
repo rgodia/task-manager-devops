@@ -1,6 +1,18 @@
+# Python
 venv/
 __pycache__/
 .pytest_cache/
 *.pyc
+
+# SQLite databases
 *.db
+
+# Environment variables and secrets
 .env
+.env.*
+!.env.example
+
+# Jenkins local configuration
+jenkins/.env
+jenkins/.env.*
+!jenkins/.env.example
