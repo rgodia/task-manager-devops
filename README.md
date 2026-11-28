@@ -1,241 +1,82 @@
-
 # Task Manager – DevOps Portfolio Project
 
-A Flask-based task management application built to demonstrate an end-to-end DevOps lifecycle, from application development to automated CI/CD, containerization, Kubernetes deployment, and monitoring.
+A Flask-based task management application developed as a hands-on DevOps
+portfolio project. The project demonstrates application development,
+automated testing, containerization, CI infrastructure, and a planned
+Kubernetes deployment.
 
-This project is being developed incrementally on an Ubuntu virtual machine.
+The environment is an Ubuntu virtual machine running Docker and Jenkins.
+
+## Project Status
+
+**Current focus:** Jenkins CI infrastructure and pipeline validation.
+
+Completed:
+- Flask task management application with SQLite.
+- Automated application tests using pytest.
+- Docker image and Docker Compose configuration.
+- Jenkins controller running in Docker.
+- Separate Jenkins Python inbound build agent.
+- Jenkins CI pipeline configured for GitHub checkout and pytest.
+- Jenkins infrastructure defined using Docker Compose.
+- Persistent Jenkins data and agent workspace volumes.
 
 ## Technology Stack
 
 | Technology | Purpose |
 |---|---|
-| Python 3.12 | Application development |
-| Flask | Web application framework |
-| SQLite | Database |
+| Python / Flask | Application and web framework |
+| SQLite | Application database |
 | pytest | Automated testing |
-| Git | Version control |
-| GitHub | Source code repository |
-| Docker | Application containerization |
+| Git / GitHub | Version control and source hosting |
+| Ubuntu | Development environment |
+| Docker | Application and CI containerization |
 | Docker Compose | Container management |
-| Jenkins | Continuous Integration / Continuous Deployment |
-| Minikube | Local Kubernetes environment |
-| Prometheus | Monitoring and metrics |
-| Grafana | Monitoring dashboards |
+| Jenkins | CI automation |
+| Java 21 | Jenkins runtime |
+| Minikube / Kubernetes | Planned orchestration |
+| Prometheus / Grafana | Planned monitoring |
 
 ## Application Features
 
-- Create tasks
-- View tasks
-- Mark tasks as completed
-- Delete tasks
-- SQLite database integration
-- Configurable database location
-- Application health endpoint
-- Persistent database storage with Docker volumes
+- Create and view tasks.
+- Mark tasks as completed.
+- Delete tasks.
+- SQLite database integration.
+- Configurable database location.
+- Application health endpoint.
+- Persistent database storage using Docker volumes.
 
 ## Project Architecture
 
-Current architecture:
+The current environment contains the following components:
 
-    Ubuntu VM
+```text
+Ubuntu VM
+|
++-- Git / GitHub
+|   |
+|   +-- Task Manager source code
+|   +-- Jenkinsfile
+|   +-- Docker configuration
+|
++-- Docker
     |
-    +-- Git / GitHub
-    |      |
-    |      +-- Source code
-    |      +-- Jenkinsfile
+    +-- Task Manager application
+    |   +-- Flask
+    |   +-- SQLite
+    |   +-- Persistent database volume
     |
-    +-- Docker
-           |
-           +-- Task Manager container
-           |      |
-           |      +-- Flask application
-           |      +-- SQLite database
-           |      +-- Persistent Docker volume
-           |
-           +-- Jenkins controller
-           |      |
-           |      +-- Jenkins jobs
-           |      +-- Pipeline configuration
-           |
-           +-- Jenkins Python build agent
-                  |
-                  +-- Python
-                  +-- Git
-                  +-- pytest
-
-## Run Locally
-
-Clone the repository:
-
-    git clone git@github.com:rgodia/task-manager-devops.git
-    cd task-manager-devops
-
-Create a virtual environment:
-
-    python3 -m venv venv
-    source venv/bin/activate
-
-Install dependencies:
-
-    pip install -r requirements.txt
-
-Run the application:
-
-    flask --app app.routes run --host=0.0.0.0 --port=5000
-
-Access the application:
-
-    http://localhost:5000
-
-## Run Automated Tests
-
-Activate the virtual environment:
-
-    source venv/bin/activate
-
-Run pytest:
-
-    python -m pytest -v
-
-## Run with Docker
-
-Build the Docker image:
-
-    docker build -t task-manager:1.1 .
-
-Run the container:
-
-    docker run -d \
-      --name task-manager \
-      -p 5000:5000 \
-      -e DATABASE_PATH=/data/tasks.db \
-      -v task-manager-data:/data \
-      task-manager:1.1
-
-Check running containers:
-
-    docker ps
-
-View container logs:
-
-    docker logs task-manager
-
-## Run with Docker Compose
-
-Start the application:
-
-    docker compose up -d --build
-
-Check container status:
-
-    docker compose ps
-
-View logs:
-
-    docker compose logs -f
-
-Check application health:
-
-    curl http://localhost:5000/health
-
-Stop the application:
-
-    docker compose down
-
-Note: Docker named volumes are used to persist SQLite data independently of the application container.
-
-## Jenkins CI Pipeline
-
-Jenkins is used to automate the application's continuous integration process.
-
-### Jenkins Architecture
-
-- Jenkins controller runs inside Docker.
-- A separate Python build agent executes pipeline jobs.
-- GitHub provides the source code.
-- Jenkins uses a Jenkinsfile stored in the repository.
-
-### Current CI Pipeline Stages
-
-1. Checkout source code from GitHub.
-2. Create a Python virtual environment.
-3. Install application dependencies.
-4. Execute automated tests using pytest.
-5. Report pipeline success or failure.
-
-### Pipeline Configuration
-
-The pipeline is defined in:
-
-    Jenkinsfile
-
-The Python build agent is configured with the label:
-
-    python
-
-The pipeline currently executes successfully.
-
-## Project Roadmap
-
-### Completed
-
-- [x] Ubuntu development environment
-- [x] Flask application development
-- [x] SQLite database integration
-- [x] CRUD functionality
-- [x] Automated tests with pytest
-- [x] GitHub repository
-- [x] Git version control
-- [x] Dockerfile
-- [x] Docker image creation
-- [x] Docker persistent volumes
-- [x] Docker Compose
-- [x] Jenkins controller installation
-- [x] Jenkins Python build agent
-- [x] Jenkinsfile
-- [x] GitHub source code checkout through Jenkins
-- [x] Automated pytest execution through Jenkins
-
-### Upcoming
-
-- [ ] Automate Docker image builds through Jenkins
-- [ ] Publish Docker images to GitHub Container Registry (GHCR)
-- [ ] Configure GitHub webhooks for automatic builds
-- [ ] Install Minikube
-- [ ] Deploy application to Kubernetes
-- [ ] Configure Kubernetes Services and Deployments
-- [ ] Configure Kubernetes PersistentVolumes and PersistentVolumeClaims
-- [ ] Configure application replicas and scaling
-- [ ] Implement development and production environments
-- [ ] Automate Kubernetes deployments through Jenkins
-- [ ] Configure deployment verification and rollback
-- [ ] Implement Prometheus monitoring
-- [ ] Create Grafana dashboards
-- [ ] Configure centralized logging
-- [ ] Implement alerting
-- [ ] Explore high availability and resilience
-
-## Learning Objectives
-
-This project is intended to demonstrate practical experience with:
-
-- Linux administration
-- Python application development
-- Git and GitHub
-- Automated testing
-- CI/CD pipelines
-- Docker and containerization
-- Jenkins automation
-- Container registries
-- Kubernetes orchestration
-- Infrastructure monitoring
-- Logging and alerting
-- Application reliability and scalability
-
-## Author
-
-DevOps learning and portfolio project.
-
-GitHub:
-https://github.com/rgodia/task-manager-devops
-
+    +-- Jenkins infrastructure
+        |
+        +-- Jenkins controller
+        |   +-- Jenkins UI
+        |   +-- Pipeline configuration
+        |   +-- Persistent Jenkins home
+        |
+        +-- Python inbound agent
+            +-- Python
+            +-- Git
+            +-- Java 21
+            +-- Docker CLI
+            +-- pytest (installed through project dependencies)
